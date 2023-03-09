@@ -1,0 +1,22 @@
+.map {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.tile {
+  width: 32px;
+  height: 32px;
+  border: 1px solid black;
+}
+
+.wall {
+  background-color: darkgray;
+}
+
+.floor {
+  background-color: lightgray;
+}

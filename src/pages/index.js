@@ -1,20 +1,58 @@
 import Head from 'next/head'
+import GameMap from '@/components/GameMap'
+import React, { useState } from 'react';
+
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen flex-col justify-center py-10">
-      <Head>
+  const [map, setMap] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0],
+    [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ]);
 
+  const handleMapChange = (newMap) => {
+    setMap(newMap);
+  };
+
+  const handleClick = () => {
+    console.log(map);
+  };
+
+
+  return (
+    <div className="py-5">
+      <Head>
         <title>Interactive NCA</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
       </Head>
-      <main className="flex w-full flex-1 flex-col items-center px-20 text-center">
-        <div className="container mx-auto mx-10">
+      <main className="flex justify-center w-full text-center">
+        <div className="container mx-auto">
           <h1 className="text-3xl font-press-start">
             Interactive NCA
           </h1>
+
+          <div className="flex flex-col justify-center py-5">
+            <GameMap mapData={map} onMapChange={handleMapChange} />
+          </div>
+
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleClick}>
+          Button
+        </button>
+
         </div>
       </main>
     </div>
