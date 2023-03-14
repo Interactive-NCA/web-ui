@@ -16,7 +16,7 @@
 }
 
 .wall {
-  background-image: url("/tiles/wall2.png");
+  background-image: url("/tiles/wall.png");
 
 }
 
@@ -37,7 +37,9 @@
 }
 
 .door {
-  background-image: url('/tiles/door.png')
+  background-image: url('/tiles/door.png'), url('/tiles/wall.png');
+  background-size: 60%, cover;
+  background-position: 50% 50%, center center;
 }
 
 .monster1 {
