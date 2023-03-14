@@ -2,12 +2,30 @@ import React, { useState } from 'react';
 
 import styles from '../styles/GameMap.module.css';
 
-function GameMap({ mapData, onMapChange }) {
+function GameMap({ mapData, onMapChange, selectedTileType }) {
     const [map, setMap] = useState(mapData);
+
+    const handleTileChange = (rowIndex, tileIndex, tileType) => {
+        const newMap = [...map];
+        newMap[rowIndex][tileIndex] = tileType;
+        setMap(newMap);
+        onMapChange(newMap);
+      };
+
+      const handleTileMouseDown = (event, rowIndex, tileIndex) => {
+        handleTileChange(rowIndex, tileIndex, selectedTileType);
+        event.preventDefault();
+      };
+    
+      const handleTileMouseOver = (event, rowIndex, tileIndex) => {
+        if (event.buttons === 1) {
+          handleTileChange(rowIndex, tileIndex, selectedTileType);
+        }
+      };
 
     const handleClick = (rowIndex, tileIndex) => {
         const newMap = [...map];
-        newMap[rowIndex][tileIndex] = newMap[rowIndex][tileIndex] === 0 ? 1 : 0;
+        newMap[rowIndex][tileIndex] = newMap[rowIndex][tileIndex] = selectedTileType//=== 0 ? 1 : 0;
         setMap(newMap);
         onMapChange(newMap);
     };
@@ -29,7 +47,12 @@ function GameMap({ mapData, onMapChange }) {
                     ''
                 }`}
                 key={`${rowIndex}-${tileIndex}`}
-                onClick={() => handleClick(rowIndex, tileIndex)}
+                onMouseDown={(event) =>
+                    handleTileMouseDown(event, rowIndex, tileIndex)
+                  }
+                  onMouseOver={(event) =>
+                    handleTileMouseOver(event, rowIndex, tileIndex)
+                  }
                 />
             ))}
             </div>
