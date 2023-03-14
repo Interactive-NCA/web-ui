@@ -10,13 +10,44 @@
 .tile {
   width: 32px;
   height: 32px;
-  border: 1px solid black;
+  background-size: cover;
+  background-repeat: no-repeat;
+
 }
 
 .wall {
-  background-color: darkgray;
+  background-image: url("/tiles/wall2.png");
+
 }
 
 .floor {
-  background-color: lightgray;
+  background-image: url("/tiles/grass.png");
+}
+
+.zelda {
+  background-image: url('/tiles/zelda.png'), url('/tiles/grass.png');
+  background-size: 95%, cover;
+  background-position: 0 0, center center;
+}
+
+.key {
+  background-image: url('/tiles/key.png'), url('/tiles/grass.png');
+  background-size: 80%, cover;
+  background-position: 50% 50%, center center;
+}
+
+.door {
+  background-image: url('/tiles/door.png')
+}
+
+.monster1 {
+  background-image: url('/tiles/monster1.png'), url('/tiles/grass.png');
+  background-size: 80%, cover;
+  background-position: 50% 50%, center center;
+}
+
+.monster2 {
+  background-image: url('/tiles/monster2.png'), url('/tiles/grass.png');
+  background-size: 90%, cover;
+  background-position: 50% 50%, center center;
 }
