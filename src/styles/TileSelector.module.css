@@ -1,0 +1,58 @@
+.tile {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.tile:hover{
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.selected {
+  border:2px solid rgb(198, 161, 235);
+  width: 40px;
+  height: 40px;
+}
+
+.wall {
+  background-image: url("/tiles/wall.png");
+
+}
+
+.floor {
+  background-image: url("/tiles/grass.png");
+}
+
+.zelda {
+  background-image: url('/tiles/zelda.png'), url('/tiles/grass.png');
+  background-size: 95%, cover;
+  background-position: 0 0, center center;
+}
+
+.key {
+  background-image: url('/tiles/key.png'), url('/tiles/grass.png');
+  background-size: 80%, cover;
+  background-position: 50% 50%, center center;
+}
+
+.door {
+  background-image: url('/tiles/door.png'), url('/tiles/wall.png');
+  background-size: 60%, cover;
+  background-position: 50% 50%, center center;
+}
+
+.monster1 {
+  background-image: url('/tiles/monster1.png'), url('/tiles/grass.png');
+  background-size: 80%, cover;
+  background-position: 50% 50%, center center;
+}
+
+.monster2 {
+  background-image: url('/tiles/monster2.png'), url('/tiles/grass.png');
+  background-size: 90%, cover;
+  background-position: 50% 50%, center center;
+}
