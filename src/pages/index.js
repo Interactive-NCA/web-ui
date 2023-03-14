@@ -33,19 +33,19 @@ export default function Home() {
 
 
   return (
-    <div className="py-5">
+    <div className="py-5 flex items-center justify-center">
       <Head>
         <title>Interactive NCA</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex justify-center w-full text-center">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex flex-col items-center justify-center">
           <h1 className="text-3xl font-press-start">
             Interactive NCA
           </h1>
 
-          <div className="flex flex-col justify-center py-5">
+          <div className="py-5">
             <GameMap mapData={map} onMapChange={handleMapChange} />
           </div>
 
