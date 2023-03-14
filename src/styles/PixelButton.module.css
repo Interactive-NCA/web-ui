@@ -1,0 +1,46 @@
+.pixelButton {
+  background-color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: white;
+  position: relative;
+}
+
+.pixelArt {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pixelArt span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.pixelArt span:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.pixelArt span:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+
+.pixelArt span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+
+.pixelArt span:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}
