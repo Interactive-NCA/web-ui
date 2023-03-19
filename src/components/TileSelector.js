@@ -5,6 +5,18 @@ const TileSelector = ({ selectedTileType, onTileTypeSelect }) => {
 
   const tilesTypes = [0, 1, 2, 3, 4, 5, 6]
 
+  const setCursor = (tile) => {
+    document.documentElement.style.cursor =
+      tile === 0 ? `url('/cursors/wall.png') 12 12, auto` :
+      tile === 1 ? `url('/cursors/grass.png') 12 12, auto` :
+      tile === 2 ? `url('/cursors/zelda.png') 12 12, auto` :
+      tile === 3 ? `url('/cursors/key.png') 12 12, auto` :
+      tile === 4 ? `url('/cursors/door.png') 12 12, auto` :
+      tile === 5 ? `url('/cursors/monster1.png') 12 12, auto` :
+      tile === 6 ? `url('/cursors/monster2.png') 12 12, auto` :
+      `auto`;
+  };
+
   return (
       <div className="flex pb-5 justify-center">
             {tilesTypes.map((tile, tileIndex) => (
@@ -20,7 +32,10 @@ const TileSelector = ({ selectedTileType, onTileTypeSelect }) => {
                     ''
                 } ${selectedTileType === tile ? styles.selected : ""}`}
                 key={`${tileIndex}`}
-                onClick={() => onTileTypeSelect(tile)}
+                onClick={() => {
+                    onTileTypeSelect(tile);
+                    setCursor(tile);
+                }}
                 />
             ))}
      </div>
