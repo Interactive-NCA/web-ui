@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import styles from '../styles/GameMap.module.css';
 
 function GameMap({ mapData, onMapChange, selectedTileType }) {
-    const [map, setMap] = useState(mapData);
 
     const handleTileChange = (rowIndex, tileIndex, tileType) => {
-        const newMap = [...map];
+        const newMap = [...mapData];
         newMap[rowIndex][tileIndex] = tileType;
-        setMap(newMap);
         onMapChange(newMap);
       };
 
@@ -23,13 +21,6 @@ function GameMap({ mapData, onMapChange, selectedTileType }) {
         }
       };
 
-    const handleClick = (rowIndex, tileIndex) => {
-        const newMap = [...map];
-        newMap[rowIndex][tileIndex] = newMap[rowIndex][tileIndex] = selectedTileType//=== 0 ? 1 : 0;
-        setMap(newMap);
-        onMapChange(newMap);
-    };
-  
     return (
         <div className={styles.map}>
         {mapData.map((row, rowIndex) => (
