@@ -37,6 +37,25 @@ export default function Home() {
     console.log(map);
   };
 
+  //post request to api which passes the map data and gets back a new generated map
+  async function generateMap() {
+    await fetch('https://nca-backend-rxv2teft2q-ew.a.run.app/generate?path_length=35&symmetry=0.4', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(map),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMap(data.generated_map)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+
   return (
     <div className="py-5 flex items-center justify-center">
       <Head>
@@ -60,7 +79,7 @@ export default function Home() {
           selectedTileType={selectedTileType}
           onTileTypeSelect={handleTileTypeSelect}
           />
-          <button className="bg-green-700 hover:bg-green-900 text-white font-bold mt-10 py-2 px-4 full" onClick={handleClick}>
+          <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-10 py-2 px-4 full" onClick={generateMap}>
             Generate
           </button>
         </div>
