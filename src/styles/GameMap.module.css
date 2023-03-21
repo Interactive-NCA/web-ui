@@ -53,3 +53,10 @@
   background-size: 90%, cover;
   background-position: 50% 50%, center center;
 }
+
+@media (max-width: 639px) {
+  .tile {
+    width: 20px;
+    height: 20px;
+  }
+}
