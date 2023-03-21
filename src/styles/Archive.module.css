@@ -1,0 +1,15 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+}
+
+.empty {
+  width: 20px;
+  height: 20px;
+  cursor: default;
+}

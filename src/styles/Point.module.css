@@ -1,0 +1,13 @@
+.point {
+  width: 20px;
+  height: 20px;
+  background-color: var(--point-bg-color, khaki);
+}
+
+.point:hover{
+  border: solid 1px white;
+}
+
+.selected {
+  border:2px solid rgb(198, 161, 235);
+}
