@@ -29,6 +29,118 @@ html {
   height: 16px;
 }
 
+/* AB Range Slider */
+#range-slider-ab {
+  height: 16px;
+  background: #4b4d61;
+}
+
+#range-slider-ab .range-slider__range {
+  background: #735a3e
+}
+
+#range-slider-ab .range-slider__thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+#range-slider-ab .range-slider__thumb[data-lower] {
+  background-image: url('/tiles/door.png'), url('/tiles/wall.png');
+  background-size: 60%, cover;
+  background-position: 50% 50%, center center;
+  background-repeat: no-repeat;
+}
+
+#range-slider-ab .range-slider__thumb[data-upper] {
+  background-image: url('/tiles/zelda.png'), url('/tiles/grass.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#range-slider-ab .range-slider__thumb[data-lower][data-active] {
+  animation: rotate-anti-clockwise 0.9s infinite;
+}
+
+#range-slider-ab .range-slider__thumb[data-upper][data-active] {
+  animation: rotate-clockwise 0.9s infinite;
+}
+
+@keyframes rotate-clockwise {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotate-anti-clockwise {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+/* Gradient Range Slider */
+#range-slider-gradient {
+  height: 24px;
+  border-radius: 12px;
+  background: #353644;
+}
+
+#range-slider-gradient .range-slider__thumb {
+  border: 6px solid #fff;
+  box-sizing: border-box;
+}
+
+#range-slider-gradient .range-slider__thumb[data-lower] {
+  background: #0073e6;
+}
+
+#range-slider-gradient .range-slider__thumb[data-upper] {
+  background: #ee2c2c;
+}
+
+#range-slider-gradient .range-slider__range {
+  background: linear-gradient(to right, #0073e6, #ee2c2c);
+  background-size: 200% 100%;
+  background-position: 50% 0;
+}
+
+#range-slider-gradient .range-slider__range[data-active],
+#range-slider-gradient
+  .range-slider__thumb[data-active]
+  ~ .range-slider__range {
+  animation: move-bg 0.75s infinite linear;
+}
+
+@keyframes move-bg {
+  0% {
+    background-position: 50% 0;
+  }
+
+  25% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 50% 0;
+  }
+
+  75% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: 50% 0;
+  }
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
