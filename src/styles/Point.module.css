@@ -11,3 +11,10 @@
 .selected {
   border:2px solid rgb(198, 161, 235);
 }
+
+@media (max-width: 639px) {
+  .point {
+    width: 15px;
+    height: 15px;
+  }
+}
