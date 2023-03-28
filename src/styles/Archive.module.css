@@ -13,3 +13,10 @@
   height: 20px;
   cursor: default;
 }
+
+@media (max-width: 639px) {
+  .empty {
+    width: 15px;
+    height: 15px;
+  }
+}
