@@ -49,14 +49,14 @@
 }
 
 .monster2 {
-  background-image: url('/tiles/monster2.png'), url('/tiles/grass.png');
+  background-image: url('/tiles/monster3.png'), url('/tiles/grass.png');
   background-size: 90%, cover;
   background-position: 50% 50%, center center;
 }
 
 .monster3 {
-  background-image: url('/tiles/monster3.png'), url('/tiles/grass.png');
-  background-size: 90%, cover;
+  background-image: url('/tiles/monster3.gif'), url('/tiles/grass.png');
+  background-size: 220%, cover;
   background-position: 50% 50%, center center;
 }
 

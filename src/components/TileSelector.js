@@ -13,8 +13,8 @@ const TileSelector = ({ selectedTileType, onTileTypeSelect }) => {
       tile === 3 ? `url('/cursors/key.png') 12 12, auto` :
       tile === 4 ? `url('/cursors/door.png') 12 12, auto` :
       tile === 5 ? `url('/cursors/monster1.png') 12 12, auto` :
-      tile === 6 ? `url('/cursors/monster2.png') 12 12, auto` :
-      tile === 7 ? `url('/cursors/monster3.png') 12 12, auto` :
+      tile === 6 ? `url('/cursors/monster3.png') 12 12, auto` :
+      tile === 7 ? `url('/cursors/monster3_gif.png') 12 12, auto` :
       `auto`;
   };
 
