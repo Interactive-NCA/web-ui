@@ -54,6 +54,12 @@
   background-position: 50% 50%, center center;
 }
 
+.monster3 {
+  background-image: url('/tiles/monster3.png'), url('/tiles/grass.png');
+  background-size: 90%, cover;
+  background-position: 50% 50%, center center;
+}
+
 @media (max-width: 639px) {
   .tile {
     width: 21px;
