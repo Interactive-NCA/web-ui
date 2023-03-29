@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-
 import styles from '../styles/GameMap.module.css';
 
-function GameMap({ mapData, onMapChange, selectedTileType }) {
+function GameMap({ mapData, binaryData, onMapChange, onBinaryChange, selectedTileType }) {
 
     const handleTileChange = (rowIndex, tileIndex, tileType) => {
         const newMap = [...mapData];
+        const newBinary = [...binaryData]
         newMap[rowIndex][tileIndex] = tileType;
         onMapChange(newMap);
+        if (tileType === 0) {
+          // ----> Floor tile = no fixed tile 
+          newBinary[rowIndex][tileIndex] = 0;
+        } else {
+          newBinary[rowIndex][tileIndex] = 1;
+        }
+        onBinaryChange(newBinary)
       };
 
       const handleTileMouseDown = (event, rowIndex, tileIndex) => {
@@ -27,7 +33,7 @@ function GameMap({ mapData, onMapChange, selectedTileType }) {
             <div className={styles.row} key={rowIndex}>
             {row.map((tile, tileIndex) => (
                 <div
-                className={`${styles.tile} ${
+                className={`${binaryData[rowIndex][tileIndex] == 1 ? styles.binaryTile : styles.tile} ${
                     tile === 0 ? styles.floor : 
                     tile === 1 ? styles.wall :
                     tile === 2 ? styles.zelda :

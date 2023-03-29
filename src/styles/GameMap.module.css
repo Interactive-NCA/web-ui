@@ -12,12 +12,18 @@
   height: 32px;
   background-size: cover;
   background-repeat: no-repeat;
+}
 
+.binaryTile {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 2px ridge rgb(255, 159, 25);
 }
 
 .wall {
   background-image: url("/tiles/wall.png");
-
 }
 
 .floor {
