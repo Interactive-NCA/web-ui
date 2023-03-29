@@ -1,9 +1,9 @@
 import React from "react";
 import styles from '../styles/TileSelector.module.css';
 
-const TileSelector = ({ selectedTileType, onTileTypeSelect }) => {
+import { tilesTypes } from "@/utils/constants";
 
-  const tilesTypes = [0, 1, 2, 3, 4, 5, 6, 7]
+const TileSelector = ({ selectedTileType, onTileTypeSelect }) => {
 
   const setCursor = (tile) => {
     document.documentElement.style.cursor =
