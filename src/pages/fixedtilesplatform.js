@@ -2,13 +2,13 @@ import Head from 'next/head'
 import React, { useState } from 'react';
 import 'react-range-slider-input/dist/style.css';
 
-import { initialMap } from '@/utils/constants';
+import { generateEmptyMap } from '@/utils/generateEmptyMap';
 import TileSelector from '@/components/TileSelector';
-import GameMap from '@/components/GameMap'
+import GeneratorMap from '@/components/GeneratorMap';
 
 export default function FixedTilesPlatform() {
   const [selectedTileType, setSelectedTileType] = useState(1);
-  const [map, setMap] = useState(initialMap);
+  const [map, setMap] = useState(generateEmptyMap());
   const [fixedTilesMaps, setFixedTilesMaps] = useState([]);
 
   const handleMapChange = (newMap) => {
@@ -23,6 +23,7 @@ export default function FixedTilesPlatform() {
     const copyMap = map.map((row) => [...row]); // create a new copy of each row array
     setFixedTilesMaps([...fixedTilesMaps, copyMap]);
     console.log(fixedTilesMaps);
+    setMap(generateEmptyMap());
   }
 
   function saveMaps() {
@@ -60,7 +61,7 @@ export default function FixedTilesPlatform() {
             Fixed Tiles Generator
           </h1>
           <div className="py-5">
-            <GameMap 
+            <GeneratorMap 
             mapData={map} 
             onMapChange={handleMapChange} 
             selectedTileType={selectedTileType} 
