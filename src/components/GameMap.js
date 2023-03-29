@@ -11,6 +11,7 @@ function GameMap({ mapData, binaryData, onMapChange, onBinaryChange, selectedTil
           // ----> Floor tile = no fixed tile 
           newBinary[rowIndex][tileIndex] = 0;
         } else {
+          // ----> Anything else = fixed tile 
           newBinary[rowIndex][tileIndex] = 1;
         }
         onBinaryChange(newBinary)
