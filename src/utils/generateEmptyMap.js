@@ -1,8 +1,10 @@
+import { mapDimension } from "./constants";
+
 export const generateEmptyMap = () => {
   const emptyMap = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < mapDimension; i++) {
     emptyMap.push([]);
-    for (let j = 0; j < 16; j++) {
+    for (let j = 0; j < mapDimension; j++) {
       emptyMap[i].push(0);
     }
   }
