@@ -107,13 +107,14 @@ export default function Home(data) {
 
   // Main function to generate the map (calls backend)
   async function generateMap() {
+    const combinedMaps = [map, binary]
     document.documentElement.style.cursor = "wait"
     await fetch(`${BASE_URL}/generate?path_length=${pathLength}&symmetry=${symmetry}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(map),
+      body: JSON.stringify(combinedMaps),
     })
       .then((response) => response.json())
       .then((data) => {
