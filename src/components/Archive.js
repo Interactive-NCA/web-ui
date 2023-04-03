@@ -3,9 +3,10 @@ import Point from "./Point";
 import styles from "../styles/Archive.module.css";
 
 function Archive( {paths, symmetries, objectives, handlePointClick, currSymmetry, currPath } ) {
-  const path = paths.slice(200, 230);
-  const symmetry = symmetries.slice(200, 230);
-  const objective_value = objectives.slice(200,230);
+  const path = paths.slice(0, 30);
+  const symmetry = symmetries.slice(0, 30);
+  const objective_value = objectives.slice(0, 30);
+
 
   const pathSorted = Array.from(new Set(path)).sort();
   const symmetrySorted = Array.from(new Set(symmetry)).sort();
