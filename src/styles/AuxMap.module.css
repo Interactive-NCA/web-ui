@@ -1,0 +1,28 @@
+.map {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.tile {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--point-bg-color, khaki);
+}
+
+@media (max-width: 639px) {
+  .tile {
+    width: 21px;
+    height: 21px;
+  }
+
+  .binaryTile {
+    width: 21px;
+    height: 21px;
+  }
+}
