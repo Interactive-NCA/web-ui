@@ -8,7 +8,6 @@ function Point({ path, symmetry, objective, minObj, maxObj, handlePointClick, se
   const objectiveValue = objective;
 
   const colorScale = chroma.scale(['red', '#2A4858', '#008ae5'])
-  //const colorScale = chroma.cubehelix()
 
   const color = colorScale((objectiveValue - minObj) / (maxObj - minObj)).hex();
 
