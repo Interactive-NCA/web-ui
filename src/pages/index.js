@@ -1,6 +1,7 @@
 // External imports
 import Head from 'next/head'
 import React, { useState } from 'react';
+import Link from 'next/link'
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 
@@ -28,7 +29,7 @@ export default function Home(data) {
   const [sliderKey, setSliderKey] = useState(0);
   const [disabledSlider, setDisableSlider] = useState(false);
   const [sliderDefault, setSliderDefault] = useState(0);
-  
+
   // Get behaviours from backend
   const symmetries = data.data.behaviours[0] 
   const paths = data.data.behaviours[1]
@@ -118,10 +119,12 @@ export default function Home(data) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setMap(data.generated_map[0])
-        setSteps(data.generated_map)
+        setMap(data.generated_map[0][0])  // Get first map (the first step)
+        setSteps(data.generated_map[0])   // 50 steps 
         resetSlider(0)
         setMapGenerated(true)
+        localStorage.setItem('myData', JSON.stringify(data.generated_map[1])); // Aux channels
+
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -152,7 +155,7 @@ export default function Home(data) {
           <p className= "font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
         </div>
       </div>
-      <div className="w-full md:w-1/2 h-full py-5 flex items-center justify-center">
+      <div className="w-full md:w-1/2 h-full pt-10 flex items-center justify-center">
         <div className="container mx-auto flex flex-col items-center justify-center">
           <h1 className="text-xl sm:text-3xl font-press-start">
             Interactive NCA
@@ -180,8 +183,17 @@ export default function Home(data) {
             </button>
           </div>
           <div className='flex'>
-            <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 py-2 px-4 full" onClick={resetMaps}>
+            <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 mr-2 py-2 px-4 full" onClick={resetMaps}>
               Reset 
+            </button>
+            <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 py-2 px-4 full">
+              <Link
+                href={{
+                  pathname: '/auxchans',
+                }}
+              >
+                Aux Chans 
+              </Link>
             </button>
           </div>
 
