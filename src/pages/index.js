@@ -123,7 +123,8 @@ export default function Home(data) {
         setSteps(data.generated_map[0])   // 50 steps 
         resetSlider(0)
         setMapGenerated(true)
-        localStorage.setItem('myData', JSON.stringify(data.generated_map[1])); // Aux channels
+        localStorage.setItem('aux_chans', JSON.stringify(data.generated_map[1])); // Aux channels
+        localStorage.setItem('levels', JSON.stringify(data.generated_map[0])); // 50 steps of a level
 
       })
       .catch((error) => {
@@ -186,15 +187,14 @@ export default function Home(data) {
             <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 mr-2 py-2 px-4 full" onClick={resetMaps}>
               Reset 
             </button>
-            <button className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 py-2 px-4 full">
               <Link
+                className="bg-green-700 hover:bg-green-900 font-press-start text-white font-bold mt-2 py-2 px-4 full"
                 href={{
                   pathname: '/auxchans',
                 }}
               >
                 Aux Chans 
               </Link>
-            </button>
           </div>
 
           <div className="flex pt-10 w-1/2 flex-col items-center justify-center">
