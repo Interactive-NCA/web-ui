@@ -1,14 +1,10 @@
 import styles from '../styles/AuxMap.module.css';
 import chroma from "chroma-js";
 
-function AuxMap({ auxData }) {
+function AuxMap({ auxData, minValue, maxValue }) {
 
-    //const colorScale = chroma.scale(['red', '#2A4858', '#008ae5'])
-    //const colorScale = chroma.cubehelix();//chroma.scale();
-    //const colorScale = chroma.scale(['#fafa6e','#2A4858'])
-
-    const colorScale = chroma.scale(['yellow', 'lightgreen', '#008ae5'])
-
+    // const colorScale = chroma.scale(['yellow', 'lightgreen', '#008ae5'])
+    const colorScale = chroma.scale(['#00a8cc', '#7b2cbf'])
 
     let min = auxData[0][0];
     let max = auxData[0][0];
@@ -25,7 +21,7 @@ function AuxMap({ auxData }) {
     }
 
     const calculateColor = (tileType) => {
-        return {"--point-bg-color": colorScale((tileType - min) / (max - min)).hex()}
+        return {"--point-bg-color": colorScale((tileType - minValue) / (maxValue - minValue)).hex()}
     }
 
     return (
