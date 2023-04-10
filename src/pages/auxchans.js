@@ -37,8 +37,8 @@ export default function AuxChans() {
   const [selectedChannel, setSelectedChannel] = React.useState(new Set(["1"]));
 
   const handleChannelSelection = (channel) => {
-    const index = parseInt(String(selectedChannel.values().next().value))
     setSelectedChannel(channel);
+    const index = parseInt(String(channel.values().next().value))
     setAuxSteps(auxChans[index - 1]);
     setAux(auxChans[index - 1][0]);
     setMinMax(findMinMax(auxChans[index - 1]));
