@@ -13,6 +13,7 @@ import { findMinMax } from '@/utils/findMinMax';
 // Components
 import AuxMap from '@/components/AuxMap';
 import StaticMap from '@/components/StaticMap';
+import LinearBar from '@/components/LinearBar';
 
 export default function AuxChans() {
 
@@ -56,6 +57,21 @@ export default function AuxChans() {
     }
   }, []);
 
+  const arr = [];
+  
+  if (auxChans != null) {
+    for (let i = 1; i <= auxChans.length; i++) {
+      arr.push(i);
+    }
+  }
+
+  const dropdownItems = arr.map((channel) => (
+    <Dropdown.Item key={channel}>Channel {channel}</Dropdown.Item>
+  )); 
+
+  console.log(dropdownItems)
+
+
   // Get saved level data from local storage
   useEffect(() => {
     const storedData = localStorage.getItem('levels');
@@ -96,19 +112,7 @@ export default function AuxChans() {
           <div className="py-5 flex flex-wrap justify-center items-center">
             <div className="w-full md:w-1/2 md:pr-2 mb-2 md:mb-0 mx-20 md:mx-auto">
               <AuxMap auxData={aux} minValue={minMax[0]} maxValue={minMax[1]} />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div className='font-press-start'>Low</div>
-              <div style={{
-                flex: 1,
-                height: '8px',
-                borderRadius: '4px',
-                margin: '0 10px',
-                background: 'linear-gradient(to right, #00a8cc, #7b2cbf)',
-              }}>
-              </div>
-              <div className='font-press-start'>High</div>
-            </div>
-
+              <LinearBar />
             </div>
             <div className="w-full md:w-1/2 md:pl-2 mx-20 md:mx-auto">
               <StaticMap mapData={map} />
@@ -128,14 +132,7 @@ export default function AuxChans() {
                 onSelectionChange={(selected) => 
                   handleChannelSelection(selected)}
               >
-                <Dropdown.Item key="1">Channel 1</Dropdown.Item>
-                <Dropdown.Item key="2">Channel 2</Dropdown.Item>
-                <Dropdown.Item key="3">Channel 3</Dropdown.Item>
-                <Dropdown.Item key="4">Channel 4</Dropdown.Item>
-                <Dropdown.Item key="5">Channel 5</Dropdown.Item>
-                <Dropdown.Item key="6">Channel 6</Dropdown.Item>
-                <Dropdown.Item key="7">Channel 7</Dropdown.Item>
-                <Dropdown.Item key="8">Channel 8</Dropdown.Item>
+              {dropdownItems}
               </Dropdown.Menu>
             </Dropdown>
               <Link
