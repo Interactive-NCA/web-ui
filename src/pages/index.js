@@ -2,6 +2,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react';
 import Link from 'next/link'
+import { Dropdown } from "@nextui-org/react";
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 
@@ -30,10 +31,17 @@ export default function Home(data) {
   const [disabledSlider, setDisableSlider] = useState(false);
   const [sliderDefault, setSliderDefault] = useState(0);
 
-  // Get behaviours from backend
-  const symmetries = data.data.behaviours[0] 
-  const paths = data.data.behaviours[1]
-  const objectives = data.data.behaviours[2] 
+  // Behaviours state
+  const [symmetries, setSymmetries] = useState(data.behavioursData.behaviours[0])
+  const [paths, setPaths] = useState(data.behavioursData.behaviours[1])
+  const [objectives, setObjectives] = useState(data.behavioursData.behaviours[2])
+
+  const dropdownItems = data.namesData.names.map((experiment) => (
+    <Dropdown.Item key={experiment}>Experiment {experiment}</Dropdown.Item>
+  )); 
+
+  // Experiments
+  const [selectedExperiment, setSelectedExperiment] = React.useState(new Set(["2"]));
 
   // Handlers that are passed to individual components
   const handleMapChange = (newMap) => {
@@ -64,6 +72,12 @@ export default function Home(data) {
         setMap(steps[parsedValue])
     }
   }
+
+  const handleExperimentSelection = (experiment) => {
+    setSelectedExperiment(experiment);
+    const index = parseInt(String(experiment.values().next().value));
+    getExperiment(index);
+  };
 
   // Re-render slider
   const resetSlider = (value) => {
@@ -106,11 +120,22 @@ export default function Home(data) {
     }
   }
 
+  async function getExperiment(expId) {
+    document.documentElement.style.cursor = "wait"
+    const response = await fetch(`${BASE_URL}/behaviours?exp_id=${expId}`);
+    const data = await response.json();
+    document.documentElement.style.cursor = "default"
+    setSymmetries(data.behaviours[0])
+    setPaths(data.behaviours[1])
+    setObjectives(data.behaviours[2])
+  }
+
   // Main function to generate the map (calls backend)
   async function generateMap() {
     const combinedMaps = [map, binary]
+    const expId = parseInt(String(selectedExperiment.values().next().value));
     document.documentElement.style.cursor = "wait"
-    await fetch(`${BASE_URL}/generate?path_length=${pathLength}&symmetry=${symmetry}`, {
+    await fetch(`${BASE_URL}/generate?exp_id=${expId}&path_length=${pathLength}&symmetry=${symmetry}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,6 +146,7 @@ export default function Home(data) {
       .then((data) => {
         setMap(data.generated_map[0][0])  // Get first map (the first step)
         setSteps(data.generated_map[0])   // 50 steps 
+        console.log(data.generated_map[2])
         resetSlider(0)
         setMapGenerated(true)
         localStorage.setItem('aux_chans', JSON.stringify(data.generated_map[1])); // Aux channels
@@ -153,7 +179,25 @@ export default function Home(data) {
           currPath={pathLength}
           />
           <p className= "font-press-start pt-10" >Symmetry: <span className='text-sky-400'>{symmetry}</span></p>
-          <p className= "font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
+          <p className= "pb-5 font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
+
+          <Dropdown>
+            <Dropdown.Button className='font-press-start' solid="True" color="warning" css={{ tt: "capitalize" }}>
+              {"Experiment " + selectedExperiment.values().next().value}
+            </Dropdown.Button>
+            <Dropdown.Menu
+              aria-label="Single selection actions"
+              className='text-sm font-press-start'
+              color="warning"
+              disallowEmptySelection
+              selectionMode="single"
+              selectedKeys={selectedExperiment}
+              onSelectionChange={(selected) => 
+                handleExperimentSelection(selected)}
+            >
+              {dropdownItems}
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
       <div className="w-full md:w-1/2 h-full pt-10 flex items-center justify-center">
@@ -221,8 +265,11 @@ export default function Home(data) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-  const response = await fetch(`${BASE_URL}/behaviours`);
-  const data = await response.json();
+  const behaviours = await fetch(`${BASE_URL}/behaviours?exp_id=2`);
+  const expNames = await fetch(`${BASE_URL}/experimentnames`);
+  const behavioursData = await behaviours.json();
+  const namesData = await expNames.json();
+
   
-  return { props: { data } };
+  return { props: { behavioursData, namesData } };
 }
