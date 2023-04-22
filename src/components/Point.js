@@ -7,7 +7,9 @@ function Point({ path, symmetry, objective, minObj, maxObj, handlePointClick, se
   const symmetryValue = symmetry;
   const objectiveValue = objective;
 
-  const colorScale = chroma.scale(['red', '#2A4858', '#008ae5'])
+  //const colorScale = chroma.scale(['red', '#2A4858', '#008ae5'])
+
+  const colorScale = chroma.scale(['#00a8cc', '#7b2cbf'])
 
   const color = colorScale((objectiveValue - minObj) / (maxObj - minObj)).hex();
 
