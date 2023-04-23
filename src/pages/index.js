@@ -14,6 +14,7 @@ import { generateEmptyMap } from '@/utils/generateEmptyMap';
 import TileSelector from '@/components/TileSelector';
 import Archive from '@/components/Archive';
 import GameMap from '@/components/GameMap'
+import MinimapGrid from '@/components/MiniMapGrid';
 
 export default function Home(data) {
   // Map states
@@ -36,12 +37,17 @@ export default function Home(data) {
   const [paths, setPaths] = useState(data.behavioursData.behaviours[1])
   const [objectives, setObjectives] = useState(data.behavioursData.behaviours[2])
 
+  // Experiments
+  const [selectedExperiment, setSelectedExperiment] = React.useState(new Set(["2"]));
+
+  // Training seeds
+  const [trainingSeeds, setTrainingSeeds] = useState([generateEmptyMap()]);
+  const [trainingBinary, setTrainingBinary] = useState([generateEmptyMap()]);
+
   const dropdownItems = data.namesData.names.map((experiment) => (
     <Dropdown.Item key={experiment}>Experiment {experiment}</Dropdown.Item>
   )); 
 
-  // Experiments
-  const [selectedExperiment, setSelectedExperiment] = React.useState(new Set(["2"]));
 
   // Handlers that are passed to individual components
   const handleMapChange = (newMap) => {
@@ -56,9 +62,18 @@ export default function Home(data) {
     setSelectedTileType(tileType);
   };
 
+  const handleMiniMapSelect = (newMap, binaryMap) => {
+    setMap(newMap);
+    setBinary(binaryMap);
+  };
+
   const handlePointClick = (selectedSymmetry, selectedPathLength) => {
     setSymmetry(selectedSymmetry);
     setPathLength(selectedPathLength);
+
+    const expId = parseInt(String(selectedExperiment.values().next().value));
+    getTrainingSeeds(expId, selectedSymmetry, selectedPathLength);
+
   };
 
   const handleSliderChange = (value) => {
@@ -130,6 +145,15 @@ export default function Home(data) {
     setObjectives(data.behaviours[2])
   }
 
+  async function getTrainingSeeds(expId, symmetry, pathLength) {
+    document.documentElement.style.cursor = "wait"
+    const response = await fetch(`${BASE_URL}/trainingseeds?exp_id=${expId}&path_length=${pathLength}&symmetry=${symmetry}`)
+    const data = await response.json();
+    document.documentElement.style.cursor = "default"
+    setTrainingSeeds(data.training_seeds[0])
+    setTrainingBinary(data.training_seeds[1])
+  }
+
   // Main function to generate the map (calls backend)
   async function generateMap() {
     const combinedMaps = [map, binary]
@@ -146,7 +170,6 @@ export default function Home(data) {
       .then((data) => {
         setMap(data.generated_map[0][0])  // Get first map (the first step)
         setSteps(data.generated_map[0])   // 50 steps 
-        console.log(data.generated_map[2])
         resetSlider(0)
         setMapGenerated(true)
         localStorage.setItem('aux_chans', JSON.stringify(data.generated_map[1])); // Aux channels
@@ -198,6 +221,7 @@ export default function Home(data) {
               {dropdownItems}
             </Dropdown.Menu>
           </Dropdown>
+          <MinimapGrid trainingSeeds={trainingSeeds} binaryMap={trainingBinary} handleMiniMapSelect={handleMiniMapSelect}/>
         </div>
       </div>
       <div className="w-full md:w-1/2 h-full pt-10 flex items-center justify-center">
@@ -256,7 +280,7 @@ export default function Home(data) {
               disabled={disabledSlider}
             />
           </div>
-            <h2 className='pt-5 font-press-start'>{ sliderValue } </h2>
+            <h2 className='pt-5 font-press-start'>{ sliderValue + 1 } </h2>
         </div>
       </div>
     </div>
