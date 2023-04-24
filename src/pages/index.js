@@ -38,7 +38,7 @@ export default function Home(data) {
   const [objectives, setObjectives] = useState(data.behavioursData.behaviours[2])
 
   // Experiments
-  const [selectedExperiment, setSelectedExperiment] = React.useState(new Set(["2"]));
+  const [selectedExperiment, setSelectedExperiment] = React.useState(new Set([String(data.namesData.names[0])]));
 
   // Training seeds
   const [trainingSeeds, setTrainingSeeds] = useState([generateEmptyMap()]);
@@ -289,11 +289,12 @@ export default function Home(data) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-  const behaviours = await fetch(`${BASE_URL}/behaviours?exp_id=2`);
   const expNames = await fetch(`${BASE_URL}/experimentnames`);
-  const behavioursData = await behaviours.json();
   const namesData = await expNames.json();
+  const expId = namesData.names[0];
 
+  const behaviours = await fetch(`${BASE_URL}/behaviours?exp_id=${expId}`);
+  const behavioursData = await behaviours.json();
   
   return { props: { behavioursData, namesData } };
 }
