@@ -44,6 +44,9 @@ export default function Home(data) {
   const [trainingSeeds, setTrainingSeeds] = useState([generateEmptyMap()]);
   const [trainingBinary, setTrainingBinary] = useState([generateEmptyMap()]);
 
+  // Experiment description
+  const [description, setDescription] = useState(data.descriptionData.desc);
+
   const dropdownItems = data.namesData.names.map((experiment) => (
     <Dropdown.Item key={experiment}>Experiment {experiment}</Dropdown.Item>
   )); 
@@ -137,12 +140,18 @@ export default function Home(data) {
 
   async function getExperiment(expId) {
     document.documentElement.style.cursor = "wait"
-    const response = await fetch(`${BASE_URL}/behaviours?exp_id=${expId}`);
-    const data = await response.json();
+    const behaviours = await fetch(`${BASE_URL}/behaviours?exp_id=${expId}`);
+    const behavioursData = await behaviours.json();
+
+    const expDescription = await fetch(`${BASE_URL}/experimentdescriptions?exp_id=${expId}`);
+    const descriptionData = await expDescription.json();
+
     document.documentElement.style.cursor = "default"
-    setSymmetries(data.behaviours[0])
-    setPaths(data.behaviours[1])
-    setObjectives(data.behaviours[2])
+
+    setSymmetries(behavioursData.behaviours[0])
+    setPaths(behavioursData.behaviours[1])
+    setObjectives(behavioursData.behaviours[2])
+    setDescription(descriptionData.desc)
   }
 
   async function getTrainingSeeds(expId, symmetry, pathLength) {
@@ -221,7 +230,12 @@ export default function Home(data) {
               {dropdownItems}
             </Dropdown.Menu>
           </Dropdown>
+
+          <div className="flex flex-row pt-5 w-50">
+            <h3 className='font-press-start text-xs'>{ description } </h3>
+          </div>
           <MinimapGrid trainingSeeds={trainingSeeds} binaryMap={trainingBinary} handleMiniMapSelect={handleMiniMapSelect}/>
+          <h3 className='font-press-start text-xs'>Training seeds</h3>
         </div>
       </div>
       <div className="w-full md:w-1/2 h-full pt-10 flex items-center justify-center">
@@ -295,6 +309,11 @@ export async function getServerSideProps() {
 
   const behaviours = await fetch(`${BASE_URL}/behaviours?exp_id=${expId}`);
   const behavioursData = await behaviours.json();
-  
-  return { props: { behavioursData, namesData } };
+
+  const expDescription = await fetch(`${BASE_URL}/experimentdescriptions?exp_id=${expId}`);
+  const descriptionData = await expDescription.json();
+
+  console.log(descriptionData)
+
+  return { props: { behavioursData, namesData, descriptionData } };
 }
