@@ -9,6 +9,7 @@ import 'react-range-slider-input/dist/style.css';
 // Helper things
 import { BASE_URL } from '@/utils/constants';
 import { generateEmptyMap } from '@/utils/generateEmptyMap';
+import { roundToSignificantDigits } from '@/utils/roundNumber';
 
 // Components
 import TileSelector from '@/components/TileSelector';
@@ -214,7 +215,7 @@ export default function Home(data) {
           />
           <p className= "font-press-start pt-10" >Symmetry: <span className='text-sky-400'>{symmetry}</span></p>
           <p className= "font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
-          <p className= "pb-5 font-press-start" >Fitness: <span className='text-sky-400'>{objective}</span></p> 
+          <p className= "pb-5 font-press-start" >Fitness: <span className='text-sky-400'>{objective.toFixed(3)}</span></p> 
 
           <Dropdown>
             <Dropdown.Button className='font-press-start' solid="True" color="warning" css={{ tt: "capitalize" }}>
