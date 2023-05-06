@@ -9,7 +9,6 @@ import 'react-range-slider-input/dist/style.css';
 // Helper things
 import { BASE_URL } from '@/utils/constants';
 import { generateEmptyMap } from '@/utils/generateEmptyMap';
-import { roundToSignificantDigits } from '@/utils/roundNumber';
 
 // Components
 import TileSelector from '@/components/TileSelector';
