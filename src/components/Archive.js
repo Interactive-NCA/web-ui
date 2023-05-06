@@ -7,8 +7,6 @@ function Archive( {paths, symmetries, objectives, handlePointClick, currSymmetry
   const symmetry = symmetries.slice(0, 30);
   const objective_value = objectives.slice(0, 30);
 
-
-  //const pathSorted = Array.from(new Set(path)).sort();
   const pathSorted = Array.from(new Set(path)).sort((a, b) => a - b);
   const symmetrySorted = Array.from(new Set(symmetry)).sort((a,b) => a - b);
   const minObj = Math.min(...objective_value);
@@ -33,12 +31,6 @@ function Archive( {paths, symmetries, objectives, handlePointClick, currSymmetry
     var y = symmetrySorted.indexOf(point[1])
     grid[x][y] = point;
   });
-
-  console.log("================")
-  console.log(path)
-  console.log(pathSorted)
-  console.log(grid)
-  console.log("================")
 
   return (
     <div>
