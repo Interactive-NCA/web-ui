@@ -26,6 +26,7 @@ export default function Home(data) {
   // Behaviours states
   const [symmetry, setSymmetry] = useState(10);
   const [pathLength, setPathLength] = useState(10);
+  const [objective, setObjective] = useState(0);
   // Slider states
   const [sliderValue, setSliderValue] = useState(0);
   const [sliderKey, setSliderKey] = useState(0);
@@ -70,9 +71,10 @@ export default function Home(data) {
     setBinary(binaryMap);
   };
 
-  const handlePointClick = (selectedSymmetry, selectedPathLength) => {
+  const handlePointClick = (selectedSymmetry, selectedPathLength, objValue) => {
     setSymmetry(selectedSymmetry);
     setPathLength(selectedPathLength);
+    setObjective(objValue);
 
     const expId = parseInt(String(selectedExperiment.values().next().value));
     getTrainingSeeds(expId, selectedSymmetry, selectedPathLength);
@@ -211,7 +213,8 @@ export default function Home(data) {
           currPath={pathLength}
           />
           <p className= "font-press-start pt-10" >Symmetry: <span className='text-sky-400'>{symmetry}</span></p>
-          <p className= "pb-5 font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
+          <p className= "font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
+          <p className= "pb-5 font-press-start" >Fitness: <span className='text-sky-400'>{objective}</span></p> 
 
           <Dropdown>
             <Dropdown.Button className='font-press-start' solid="True" color="warning" css={{ tt: "capitalize" }}>
@@ -234,7 +237,10 @@ export default function Home(data) {
           <div className="flex flex-row pt-5 w-50">
             <h3 className='font-press-start text-xs'>{ description } </h3>
           </div>
-          <MinimapGrid trainingSeeds={trainingSeeds} binaryMap={trainingBinary} handleMiniMapSelect={handleMiniMapSelect}/>
+          <MinimapGrid 
+          trainingSeeds={trainingSeeds} 
+          binaryMap={trainingBinary} 
+          handleMiniMapSelect={handleMiniMapSelect}/>
           <h3 className='font-press-start text-xs'>Training seeds</h3>
         </div>
       </div>
@@ -312,8 +318,6 @@ export async function getServerSideProps() {
 
   const expDescription = await fetch(`${BASE_URL}/experimentdescriptions?exp_id=${expId}`);
   const descriptionData = await expDescription.json();
-
-  console.log(descriptionData)
 
   return { props: { behavioursData, namesData, descriptionData } };
 }
