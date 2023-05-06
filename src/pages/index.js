@@ -159,8 +159,8 @@ export default function Home(data) {
     const response = await fetch(`${BASE_URL}/trainingseeds?exp_id=${expId}&path_length=${pathLength}&symmetry=${symmetry}`)
     const data = await response.json();
     document.documentElement.style.cursor = "default"
-    setTrainingSeeds(data.training_seeds[0])
-    setTrainingBinary(data.training_seeds[1])
+    setTrainingSeeds(data.training_seeds[0].slice(0,10))
+    setTrainingBinary(data.training_seeds[1].slice(0,10))
   }
 
   // Main function to generate the map (calls backend)
