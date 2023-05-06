@@ -23,6 +23,7 @@ export default function Home(data) {
   const [binary, setBinary] = useState(generateEmptyMap());
   const [steps, setSteps] = useState(null);
   const [mapGenerated, setMapGenerated] = useState(false);
+  const [ finalLevelStats, setFinalLevelStats ] = useState([0,0]);
   // Behaviours states
   const [symmetry, setSymmetry] = useState(10);
   const [pathLength, setPathLength] = useState(10);
@@ -181,6 +182,7 @@ export default function Home(data) {
       .then((data) => {
         setMap(data.generated_map[0][0])  // Get first map (the first step)
         setSteps(data.generated_map[0])   // 50 steps 
+        setFinalLevelStats(data.generated_map[2]) // Final level stats
         resetSlider(0)
         setMapGenerated(true)
         localStorage.setItem('aux_chans', JSON.stringify(data.generated_map[1])); // Aux channels
@@ -285,7 +287,10 @@ export default function Home(data) {
               </Link>
           </div>
 
-          <div className="flex pt-10 w-1/2 flex-col items-center justify-center">
+          <p className= "text-sm font-press-start pt-5" >Level Symmetry: <span className='text-sky-400'>{parseFloat(finalLevelStats[0]).toFixed(3)}</span></p>
+          <p className= "text-sm font-press-start" >Level Path Length: <span className='text-sky-400'>{finalLevelStats[1]}</span></p>
+
+          <div className="flex pt-5 w-1/2 flex-col items-center justify-center">
             <RangeSlider
               key={sliderKey}
               id="range-slider-ab"
