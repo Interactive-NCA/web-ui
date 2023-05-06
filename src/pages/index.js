@@ -201,7 +201,7 @@ export default function Home(data) {
       </Head>
       <div className="w-full md:w-1/2 h-full flex items-center justify-center">
         <div className="container mx-auto flex flex-col items-center justify-center">
-          <h1 className="text-xl sm:text-3xl font-press-start pb-20">
+          <h1 className="text-xl sm:text-3xl font-press-start pb-10">
             Models 
           </h1>
           <Archive
@@ -212,7 +212,7 @@ export default function Home(data) {
           currSymmetry={symmetry}
           currPath={pathLength}
           />
-          <p className= "font-press-start pt-10" >Symmetry: <span className='text-sky-400'>{symmetry}</span></p>
+          <p className= "font-press-start pt-10" >Symmetry: <span className='text-sky-400'>{symmetry.toFixed(3)}</span></p>
           <p className= "font-press-start" >Path: <span className='text-sky-400'>{pathLength}</span></p> 
           <p className= "pb-5 font-press-start" >Fitness: <span className='text-sky-400'>{objective.toFixed(3)}</span></p> 
 
