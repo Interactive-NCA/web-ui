@@ -20,7 +20,7 @@ function Point({ path, symmetry, objective, minObj, maxObj, handlePointClick, se
   const handleClick = () => {
     console.log(`Path Length: ${pathValue}, Symmetry: ${symmetryValue}, Objective Value: ${objectiveValue}`);
     console.log()
-    handlePointClick(symmetryValue, pathValue);
+    handlePointClick(symmetryValue, pathValue, objectiveValue);
   };
 
   return (
