@@ -49,8 +49,26 @@ export default function Home(data) {
   // Experiment description
   const [description, setDescription] = useState(data.descriptionData.desc);
 
+  const experimentMapping = (experiment) => {
+    const expId = parseInt(String(experiment));
+    if (expId == 16) {
+      return "Baseline";
+    } else if (expId == 38) {
+      return "Fixed Walls";
+    } else if (expId == 27) {
+      return "Fixed Triples";
+    } else if (expId == 28) {
+      return "Fixed Pairs";
+    } else if (expId == 29) {
+      return "Fixed Single";
+    } else if (expId == 43) {
+      return "Mixed";
+    } else {
+      return "Unknown";
+    }}
+
   const dropdownItems = data.namesData.names.map((experiment) => (
-    <Dropdown.Item key={experiment}>Experiment {experiment}</Dropdown.Item>
+    <Dropdown.Item key={experiment}>{experimentMapping(experiment)}</Dropdown.Item>
   )); 
 
 
@@ -99,6 +117,7 @@ export default function Home(data) {
     const index = parseInt(String(experiment.values().next().value));
     getExperiment(index);
   };
+
 
   // Re-render slider
   const resetSlider = (value) => {
@@ -220,7 +239,7 @@ export default function Home(data) {
 
           <Dropdown>
             <Dropdown.Button className='font-press-start' solid="True" color="warning" css={{ tt: "capitalize" }}>
-              {"Experiment " + selectedExperiment.values().next().value}
+              {experimentMapping(selectedExperiment.values().next().value)}
             </Dropdown.Button>
             <Dropdown.Menu
               aria-label="Single selection actions"
@@ -236,9 +255,6 @@ export default function Home(data) {
             </Dropdown.Menu>
           </Dropdown>
 
-          <div className="flex flex-row pt-5 w-50">
-            <h3 className='font-press-start text-xs'>{ description } </h3>
-          </div>
           <MinimapGrid 
           trainingSeeds={trainingSeeds} 
           binaryMap={trainingBinary} 
